@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+
+    var nextToCreate = 0;
+    var nextToDelete = 0;
+    var numPrimary = 0;
+    var numSecondary = 0;
+
+    function addVideo(secondary) {
+      var video = document.createElement('video');
+
+      video.src = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+      video.autoplay = true;
+      if (secondary) {
+        video.secondary = true;
+        document.getElementById("num_secondary").textContent = ++numSecondary;
+      }
+      else {
+        document.getElementById("num_primary").textContent = ++numPrimary;
+      }
+      video.setAttribute("width", "640");
+      video.setAttribute("height", "480");
+      video.setAttribute("controls", "controls");
+      video.id = "video" + nextToCreate++;
+      document.body.appendChild(video);
+    }
+
+    function removeVideo() {
+      if (nextToDelete < nextToCreate) {
+        var video = document.getElementById("video" + nextToDelete++);
+        video.src = null;
+        document.body.removeChild(video);
+        //video.remove();
+        //video = null;
+      }
+    }
+  </script>
+
+</head>
+
+<body style="background-color: gray;">
+  <button onclick="addVideo(false)">Add Primary Video</button>
+  <button onclick="addVideo(true)">Add Secondary Video</button>
+  <button onclick="removeVideo()">Remove Video</button>
+  <button onClick="window.location.reload();">Refresh Page</button>
+  <a href="1.html">1.html</a>
+  <p># of primary videos created: <span id="num_primary">0</span></p>
+  <p># of secondary videos created: <span id="num_secondary">0</span></p>
+</body>
+
+</html>
+
